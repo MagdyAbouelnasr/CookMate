@@ -1,9 +1,15 @@
-import Image from 'next/image'
+"use client"
+import { useSession } from "next-auth/react";
+import Home from "./home/page";
 
-export default function Home() {
+
+export default function Main() {
+  const {data: session} = useSession({
+    required: true
+  })
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-     <h1>hello there</h1>
-    </main>
-  )
+    <>
+      <Home/>
+    </>
+  );
 }

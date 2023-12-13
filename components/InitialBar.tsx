@@ -3,13 +3,14 @@ import React from 'react'
 import { Image } from '@mantine/core'
 import SignInButton from './SignInButton'
 
-function SignIn() {
+function InitialBar() {
   return (
     <>
     <header className="p-5 flex items-center justify-between">
       <Link href="/">
         <Image src="/cookmate.png" width={200} height={200} alt="Cookmate" />
       </Link>
+
       <SignInButton />
 
     </header>
@@ -17,4 +18,4 @@ function SignIn() {
   )
 }
 
-export default SignIn
+export default InitialBar

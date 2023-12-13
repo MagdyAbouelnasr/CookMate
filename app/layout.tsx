@@ -2,12 +2,14 @@ import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.css";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
+import InitialBar from "../components/InitialBar";
+import Nav from "../components/Nav";
+import Providers from "../components/Providers";
 import { theme } from "../theme";
 import "./globals.css";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
-  //   variable: '--font-montserrat', // tailwind
 });
 
 export const metadata: Metadata = {
@@ -25,13 +27,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <head>
+    <html lang="en" className="">
+      <head className="scroll-smooth">
         <link rel="icon" href="/icon.jpg" sizes="any" />
         <ColorSchemeScript />
       </head>
-      <body className={montserrat.className}>
-        <MantineProvider theme={theme}>{children}</MantineProvider>
+      <body className={`${montserrat.className} max-w-7xl mx-auto p-4 mt-6`}>
+           <MantineProvider theme={theme}>
+              <Providers>
+                <InitialBar />
+                
+               {children}
+              </Providers>
+          </MantineProvider>   
       </body>
     </html>
   );

@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .all-\[unset\] {
+      all: unset;
+    }
+  }
+
+:root {
+    --collection-1-font: rgba(28, 28, 28, 1);
+    --collection-1-primary: rgba(227, 104, 36, 1);
+    --collection-1-secondary: rgba(91, 124, 117, 1);
+    --collection-1-shade-1: rgba(255, 252, 247, 1);
+    --collection-1-shade-2: rgba(253, 238, 217, 1);
+    --collection-1-shade-3: rgba(54, 54, 54, 1);
+    --collection-1-shade-BG: rgba(236, 236, 236, 1);
+    --collection-1-stroke: rgba(54, 54, 54, 0.1);
+    --primary: rgba(227, 104, 36, 1);
+}
+
+
+
+.hero {
+  min-height: 60vh;
+}
+
+button:disabled{
+  opacity: 0.35;
+}
