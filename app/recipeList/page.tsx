@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import Bookmark from "@/components/icons/bookmark";
@@ -47,7 +48,6 @@ function RecipeList({ searchQuery, selectedFilter }: any) {
       return matchesSearchQuery && matchesFilter;
     });
   }, [searchQuery, selectedFilter, recipes]);
-
 
   useEffect(() => {
     setCurrentPage(1); // Reset to first page when search query changes
