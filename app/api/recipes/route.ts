@@ -1,5 +1,4 @@
 import prisma from "./../../../lib/prisma";
-import { Cuisine } from "@prisma/client";
 
 export async function GET(request: Request) {
   try {
@@ -31,9 +30,17 @@ interface RequestBody {
   userId: number;
 }
 
+enum Cuisine {
+  Arabian = 'Arabian',
+  Asian = 'Asian',
+  Italian = 'Italian',
+  Indian = 'Indian',
+  Chinese = 'Chinese'
+};
+
 function getCuisineEnumValue(cuisine: string): Cuisine | undefined {
-    const cuisineValue = Cuisine[cuisine as keyof typeof Cuisine];
-    return cuisineValue;
+  const cuisineValue = Cuisine[cuisine as keyof typeof Cuisine];
+  return cuisineValue;
 }
 
 export async function POST(request: Request) {
