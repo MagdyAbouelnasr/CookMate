@@ -1,5 +1,7 @@
 # CookMate
 
+you can you # alex@gmail.com  and alexaalexa to login
+
 ## Project Description
 
 **CookMate** is an online platform that aims to bring food enthusiasts together in a community where they can share, discover, and enjoy cooking recipes. Whether you're a seasoned chef or a culinary novice, CookMate provides a comprehensive set of features that allow you to not only find the perfect dish to whip up but also contribute to a growing repository of diverse and delectable recipes.
