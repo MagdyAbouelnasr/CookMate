@@ -1,6 +1,9 @@
+![gcookmate](https://github.com/MagdyAbouelnasr/CookMate/assets/74864420/dfdee0c1-7fd4-419d-830a-76b5f46bcb43)
+
+
 # CookMate
 
-you can you # alex@gmail.com  and alexaalexa to login
+you can use #email: alex@gmail.com  and password: alexaalexa  to login
 
 ## Project Description
 
