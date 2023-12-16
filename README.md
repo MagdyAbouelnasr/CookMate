@@ -19,6 +19,8 @@
    - **NextAuth.js** for OAuth and JWT-based user authentication.
    - JWT session set for one hour.
 
+## more features will be implemented for user usage some of which already implemented in developement such as email/token confirmation upon signup and forget psw which will ensure and increase app security and functionality
+
 ## Getting Started
 
 ### Prerequisites
