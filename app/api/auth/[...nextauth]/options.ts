@@ -13,17 +13,14 @@ export const options: NextAuthOptions = {
       async authorize(credentials, req) {
 
 
-        const res = await fetch(
-          `https://cook-mate-cn994jla3-mohamed-abouelnasrs-projects.vercel.app/api/login`,
-          {
-            method: "POST",
-            body: JSON.stringify({
-              email: credentials?.email,
-              password: credentials?.password,
-            }),
-            headers: { "Content-Type": "application/json" },
-          }
-        );
+        const res = await fetch(`https://cook-mate-bay.vercel.app/api/login`, {
+          method: "POST",
+          body: JSON.stringify({
+            email: credentials?.email,
+            password: credentials?.password,
+          }),
+          headers: { "Content-Type": "application/json" },
+        });
         const user = await res.json();
 
         // If no error and we have user data, return it
