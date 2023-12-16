@@ -14,7 +14,7 @@ export const options: NextAuthOptions = {
 
         const baseUrl =
           process.env.NODE_ENV === "production"
-            ? "https://cook-mate-bay.vercel.app/"
+            ? "https://cook-mate-mohamed-abouelnasrs-projects.vercel.app/"
             : "http://localhost:3000";
         const res = await fetch(`${baseUrl}/api/login`, {
           method: "POST",
