@@ -1,4 +1,5 @@
-"use client";
+"use client"
+
 import React, { useEffect, useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import Bookmark from "@/components/icons/bookmark";
