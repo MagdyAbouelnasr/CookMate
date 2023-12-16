@@ -12,11 +12,15 @@ export const options: NextAuthOptions = {
       },
       async authorize(credentials, req) {
 
-        const res = await fetch(`${process.env.BASE_URL}/api/login`, {
+        const baseUrl =
+          process.env.NODE_ENV === "production"
+            ? "https://cook-mate-bay.vercel.app/"
+            : "http://localhost:3000";
+        const res = await fetch(`${baseUrl}/api/login`, {
           method: "POST",
           body: JSON.stringify({
             email: credentials?.email,
-            password: credentials?.password
+            password: credentials?.password,
           }),
           headers: { "Content-Type": "application/json" },
         });
