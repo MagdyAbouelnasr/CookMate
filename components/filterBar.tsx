@@ -1,16 +1,26 @@
-"use client"
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { Select, rem } from "@mantine/core";
+import { IconComponents } from "@tabler/icons-react";
 
-const filterOptions = ['All Recipes', 'Arabian', 'Asian', 'Italian', 'Indian', 'Chinese'];
+const filterOptions = [
+  "All Recipes",
+  "Arabian",
+  "Asian",
+  "Italian",
+  "Indian",
+  "Chinese",
+];
 
-
-export default function FilterBar() {
-  const [selectedFilter, setSelectedFilter] = useState('All Recipes');
+export default function FilterBar({ onFilterChange }: any) {
+  const icon = <IconComponents style={{ width: rem(16), height: rem(16) }} />;
+  const [selectedFilter, setSelectedFilter] = useState("All Recipes");
+  const [selectedFilterBy, setSelectedFilterBy] = useState<string | null>(""); // State for the dropdown
 
   const handleFilterClick = (filter: any) => {
-    // Handle the filter click event, for example, updating the state
     setSelectedFilter(filter);
-    // You can also perform other actions based on the selected filter
+    if (typeof onFilterChange === "function") {
+      onFilterChange(filter); // Call the parent's callback function
+    }
   };
 
   return (
@@ -23,20 +33,45 @@ export default function FilterBar() {
               onClick={() => handleFilterClick(filter)}
               className={`items-center justify-center gap-[8px] px-[34px] py-[22px] ${
                 selectedFilter === filter
-                  ? 'bg-collection-1-primary text-white'
-                  : 'bg-collection-1-shade-1 text-black'
+                  ? "bg-collection-1-primary text-white"
+                  : "bg-collection-1-shade-1 text-black"
               } rounded-[16px] overflow-hidden border border-solid border-[#3636361a] inline-flex relative flex-[0_0_auto]`}
             >
-              <div className={`relative w-fit mt-[-1.00px] font-semibold text-center tracking-[0] leading-[normal] whitespace-nowrap`}>
+              <div className="relative w-fit mt-[-1.00px] font-semibold text-center tracking-[0] leading-[normal] whitespace-nowrap">
                 {filter}
               </div>
             </div>
           ))}
         </div>
-        <div className="h-[55px] items-center justify-center gap-[8px] px-[34px] py-[22px] bg-collection-1-shade-3 rounded-[16px] overflow-hidden border border-solid border-collection-1-stroke inline-flex relative flex-[0_0_auto]">
-          <div className="relative w-fit mt-[-1.00px] font-semibold text-collection-1-shade-BG text-[16px] text-center tracking-[0] leading-[normal] whitespace-nowrap">
-            Filter By
-          </div>
+        <div id="recentRecipes" className="inline-flex items-center gap-2">
+          <Select
+            size="xl"
+            rightSectionPointerEvents="none"
+            leftSection={icon}
+            placeholder="Filter By"
+            allowDeselect
+            mr={"md"}
+            data={["Newest", "Most popular", "Highestrated"]}
+            clearable
+            value={selectedFilterBy}
+            onChange={setSelectedFilterBy}
+            styles={{
+              input: {
+                backgroundColor: "black", // Background color of the select input
+                color: "white", // Text color
+              },
+              dropdown: {
+                backgroundColor: "black", // Background color of the dropdown menu
+                color: "gray", // Text color for the dropdown menu
+              },
+              // item: {
+              //   ":hover": {
+              //     outline: "grey", // Background color of items on hover
+              //     color: "black", // Text color of items on hover
+              //   },
+              // },
+            }}
+          />
         </div>
       </div>
     </section>

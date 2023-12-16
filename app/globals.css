@@ -29,3 +29,9 @@
 button:disabled{
   opacity: 0.35;
 }
+
+.end-image{
+  position: relative;
+  right: -10em;
+  z-index: 99;
+}

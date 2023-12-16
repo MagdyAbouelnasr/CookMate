@@ -1,9 +1,7 @@
 "use client";
 
 import { Select, TextInput } from "@mantine/core";
-import { useDebouncedState } from "@mantine/hooks";
 import React, { useState } from "react";
-import { SearchBarProps } from "../lib/types";
 import SearchIcon from "./icons/search";
 
 enum SearchType {
@@ -11,8 +9,7 @@ enum SearchType {
   cuisine = "cuisine",
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ allRecipes }) => {
-  const [searchTerm, setSearchTerm] = useDebouncedState<string>("", 200);
+const SearchBar = ({ setSearchQuery }: any) => {
   const [selectedType, setSelectedType] = useState<string>(SearchType.name);
 
   const handleSelectChange = (value: string | null = SearchType.name) => {
@@ -20,21 +17,29 @@ const SearchBar: React.FC<SearchBarProps> = ({ allRecipes }) => {
   };
 
   return (
-    <div className="mt-4 ml-4 flex items-center">
+    <div className="mt-4 ml-4 flex items-center w-4/12">
       <Select
+        rightSectionPointerEvents="none"
         value={selectedType}
         onChange={handleSelectChange}
         data={[
           { value: SearchType.name, label: "Recipe Name" },
-          { value: SearchType.cuisine, label: "Cuisine" },
         ]}
-        className="p-2 bg-collection-1-shade-2 rounded-lg mr-2"
+        size="sm"
+        styles={{
+          input: {
+            backgroundColor: "rgba(253, 238, 217, 1)",
+          },
+
+          dropdown: {
+            backgroundColor: "rgba(253, 238, 217, 1)",
+          },
+        }}
       />
 
       <TextInput
         placeholder="Search for new recipes"
-        value={searchTerm}
-        onChange={(event) => setSearchTerm(event.currentTarget.value)}
+        onChange={(e) => setSearchQuery(e.target.value)}
         className="w-full"
       />
 

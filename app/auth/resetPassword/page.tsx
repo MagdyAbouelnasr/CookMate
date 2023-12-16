@@ -9,17 +9,16 @@ import { useSession } from "next-auth/react";
 import ArrowRightSLine from "@/components/icons/right";
 
 const SignupSchema = Yup.object().shape({
-  username: Yup.string().required("Username is required"),
   email: Yup.string().email("Invalid email").required("Email is required"),
-  password: Yup.string()
+  newPassword: Yup.string()
     .required("Password is required")
     .min(8, "Password is too short - should be 8 chars minimum."),
-  confirmPassword: Yup.string()
+  confirmNewPassword: Yup.string()
     .required("Confirm Password is required")
-    .oneOf([Yup.ref("password")], "Passwords must match"),
+    .oneOf([Yup.ref("newPassword")], "Passwords must match"),
 });
 
-const Signup = () => {
+const ResetPassword = () => {
   const router = useRouter();
   const [isDisabled, setDisabled] = useState(false);
   const [unAuthenticated, setUnauthenticated] = useState(false);
@@ -32,27 +31,26 @@ const Signup = () => {
 
   const formik = useFormik({
     initialValues: {
-      username: "",
       email: "",
-      password: "",
-      confirmPassword: "",
+      newPassword: "",
+      confirmNewPassword: "",
     },
     validationSchema: SignupSchema,
 
     // Handle form submission
-    onSubmit: async ({ username, email, password }) => {
+    onSubmit: async ({ email, newPassword }) => {
       try {
         setDisabled(true);
         const response = await fetch("/api/user", {
-          method: "POST",
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ username, email, password }),
+          body: JSON.stringify({ email, newPassword }),
         });
 
         if (!response.ok) {
-          throw new Error("Signup failed");
+          throw new Error("Password Change failed");
         }
 
         router.push("/auth/signIn");
@@ -70,32 +68,17 @@ const Signup = () => {
     <div className="min-h-screen flex items-center justify-center mt-8">
       <div className="container grid grid-cols-2">
         <div className="flex flex-col w-8/12">
-          <h1 className="text-4xl font-bold mb-4">Join the CookMate</h1>
-          <h1 className="text-4xl font-bold mb-4">Community</h1>
-          <h2 className="text-xl mb-24">Create your account</h2>
+          <h1 className="text-4xl font-bold mb-4">Reset Your Password</h1>
+          <h2 className="text-xl mb-24">
+            Enter a new password for your CookMate account
+          </h2>
           {unAuthenticated && (
             <h2 className="text-xl mb-24 text-primary">
-              Opps Something Went Wrong! Invalid Credentials
+              Opps Something Went Wrong!
             </h2>
           )}
 
           <form onSubmit={handleSubmit} method="POST">
-            <div className="flex flex-col mb-4">
-              <label htmlFor="username" className="text-l font-bold mb-2">
-                Username
-              </label>
-              <input
-                type="text"
-                name="username"
-                value={values.username}
-                onChange={handleChange}
-                id="username"
-                className="rounded-full outline p-2 mb-2"
-              />
-              {errors.username && touched.username && (
-                <span className="text-red-400">{errors.username}</span>
-              )}
-            </div>
             <div className="flex flex-col mb-4">
               <label htmlFor="email" className="text-l font-bold mb-2">
                 Email Address
@@ -113,47 +96,49 @@ const Signup = () => {
               )}
             </div>
             <div className="flex flex-col mb-4">
-              <label htmlFor="password" className="text-l font-bold mb-2">
-                Password
+              <label htmlFor="newPassword" className="text-l font-bold mb-2">
+                New Password
               </label>
               <input
                 type="password"
-                name="password"
-                value={values.password}
+                name="newPassword"
+                value={values.newPassword}
                 onChange={handleChange}
-                id="password"
+                id="newPassword"
                 className="rounded-full outline p-2 mb-2"
               />
-              {errors.password && touched.password && (
-                <span className="text-red-400">{errors.password}</span>
+              {errors.newPassword && touched.newPassword && (
+                <span className="text-red-400">{errors.newPassword}</span>
               )}
             </div>
             <div className="flex flex-col mb-4">
               <label
-                htmlFor="confirmPassword"
+                htmlFor="confirmNewPassword"
                 className="text-l font-bold mb-2"
               >
-                Confirm password
+                Confirm New password
               </label>
               <input
                 type="password"
-                name="confirmPassword"
-                value={values.confirmPassword}
+                name="confirmNewPassword"
+                value={values.confirmNewPassword}
                 onChange={handleChange}
-                id="confirmPassword"
+                id="confirmNewPassword"
                 className="rounded-full outline p-2 mb-2"
               />
-              {errors.password && touched.password && (
-                <span className="text-red-400">{errors.confirmPassword}</span>
+              {errors.confirmNewPassword && touched.confirmNewPassword && (
+                <span className="text-red-400">
+                  {errors.confirmNewPassword}
+                </span>
               )}
             </div>
 
             <div className="text-left mb-4">
               <Link
-                href="/auth/resetPassword"
+                href="/auth/newUser"
                 className="text-blue-600 hover:text-blue-800"
               >
-                Forgot your password?
+                New User?
               </Link>
             </div>
 
@@ -162,7 +147,7 @@ const Signup = () => {
               className="w-full bg-collection-1-secondary hover:collection-1-secondary-700 text-white font-bold py-3 px-4 rounded-full uppercase mb-4 flex flex-inline justify-center"
               disabled={isDisabled}
             >
-              Create New
+              RESET PASSWORD
               <ArrowRightSLine />
             </button>
 
@@ -171,14 +156,24 @@ const Signup = () => {
                 href="/auth/signIn"
                 className="text-blue-600 hover:text-blue-800"
               >
-                Already have an account?
+                Remember your password?
               </Link>
             </div>
           </form>
+          <div className="outline-dashed rounded p-6">
+            <ul className="list-disc list-">
+              <h1 className="mb-4 font-bold text-xl ">Instructions</h1>
+              <li className="text-red-500">
+                <div className="text-black">
+                  Password must be atleast 8 characters long
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
         <div className="flex justify-end items-center">
           <Image
-            src="/cook.jpg"
+            src="/cake.jpg"
             alt="Chars"
             width={921}
             height={619}
@@ -190,4 +185,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default ResetPassword;

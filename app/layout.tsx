@@ -3,7 +3,6 @@ import "@mantine/core/styles.css";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import InitialBar from "../components/InitialBar";
-import Nav from "../components/Nav";
 import Providers from "../components/Providers";
 import { theme } from "../theme";
 import "./globals.css";
@@ -33,13 +32,12 @@ export default function RootLayout({
         <ColorSchemeScript />
       </head>
       <body className={`${montserrat.className} max-w-7xl mx-auto p-4 mt-6`}>
-           <MantineProvider theme={theme}>
-              <Providers>
-                <InitialBar />
-                
-               {children}
-              </Providers>
-          </MantineProvider>   
+        <MantineProvider theme={theme}>
+          <Providers>
+            <InitialBar />
+            {children}
+          </Providers>
+        </MantineProvider>
       </body>
     </html>
   );
